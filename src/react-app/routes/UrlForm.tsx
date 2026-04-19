@@ -1,11 +1,15 @@
+import { Form, redirect } from "react-router-dom";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
+import type { CreateUrlItemType } from "@/shared/types";
+
 export default function UrlForm() {
 
   return (
-    <form className="grid gap-6">
+    <Form method="post" className="grid gap-6">
       <div className="grid gap-2">
         <Label htmlFor="url">URL</Label>
         <Input
@@ -22,12 +26,33 @@ export default function UrlForm() {
 
       <div className="grid gap-2">
         <Label htmlFor="lastmod">Last Modified</Label>
-        <Input type="date" id="lastmod" name="lastmod" />
+        <Input 
+          type="date"
+          id="lastmod"
+          name="lastmod" 
+        />
       </div>
 
       <Button type="submit" className="w-full">
         Add
       </Button>
-    </form>
+    </Form>
   );
+}
+
+// action is exported here because UrlForm owns the <Form>.
+// It's wired to the /list/new route in main.tsx.
+export async function action({ request }: { request: Request }) {
+  const formData = await request.formData();
+  const postData = Object.fromEntries(formData) as CreateUrlItemType;
+
+  await fetch("/api/urls", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(postData),
+  });
+
+  // After a successful action, redirecting to /list
+  // causes the UrlList loader to re-run automatically
+  return redirect("/list");
 }

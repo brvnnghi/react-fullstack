@@ -6,17 +6,28 @@ import AppShell from "./routes/AppShell.tsx";
 
 import "./index.css";
 import Home from "./routes/Home.tsx";
-import NewUrl from "./routes/NewUrl.tsx";
+
+// list and loader in 1 component
 import UrlList, { loader as UrlLoader } from "./routes/UrlList.tsx";
+
+// form and action in 2 components
+import NewUrl from "./routes/NewUrl.tsx";
+import { action as NewUrlAction } from "./routes/UrlForm.tsx";
 
 // component tree
 // AppShell
-// ├── Home
-// │   ├── Demo
-// │   ├── Button
-// │   ├── Modal
-// │   │   └── NewUrl
-// │   └── UrlList
+// ├── Sidebar Provider (UI)
+// │   ├── AppSidebar (UI)
+// │   ├── SidebarInset (UI)
+// │   │   ├── Header (UI)
+// │   │   ├── Main
+// │   │   │   ├── Home (route)
+// │   │   │   │   ├── Demo
+// │   │   │   ├── UrlList (route, loader)
+// │   │   │   │   ├── UrlItem
+// │   │   │   │   ├── NewUrl (route, action)
+// │   │   │   │   │   ├── Dialog (UI)
+// │   │   │   │   │   │   ├── UrlForm
 
 const router = createBrowserRouter([
 	{
@@ -35,6 +46,7 @@ const router = createBrowserRouter([
 					{
 						path: "/list/new",
 						element: <NewUrl />,
+						action: NewUrlAction
 					},
 				]
 			},
