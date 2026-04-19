@@ -7,6 +7,7 @@ import AppShell from "./routes/AppShell.tsx";
 import "./index.css";
 import Home from "./routes/Home.tsx";
 import NewUrl from "./routes/NewUrl.tsx";
+import UrlList from "./routes/List.tsx";
 
 // component tree
 // AppShell
@@ -24,14 +25,19 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <Home />,
+				element: <Home />
+			},
+			{
+				path: "/list",
+				element: <UrlList />,
 				children: [
 					{
-						path: "/new",
+						path: "/list/new",
 						element: <NewUrl />,
 					},
 				]
-			}
+			},
+
 		] 
 	}
 ]);

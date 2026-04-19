@@ -1,34 +1,30 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom"
 
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "../assets/Cloudflare_Logo.svg";
-import honoLogo from "../assets/hono.svg";
+import { AppSidebar } from "@/components/app-sidebar"
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar"
 
 export default function AppShell() {
     return (
-        <div className="flex min-h-screen flex-col">
-            <header className="bg-gray-800 text-white p-4">
-                <div className="flex items-center justify-center gap-6 flex-wrap">
-                    <a href="https://vite.dev" target="_blank">
-                        <img src={viteLogo} className="h-24 w-24" alt="Vite logo" />
-                    </a>
-                    <a href="https://react.dev" target="_blank">
-                        <img src={reactLogo} className="h-24 w-24" alt="React logo" />
-                    </a>
-                    <a href="https://hono.dev/" target="_blank">
-                        <img src={honoLogo} className="h-24 w-24" alt="Hono logo" />
-                    </a>
-                    <a href="https://workers.cloudflare.com/" target="_blank">
-                        <img src={cloudflareLogo} className="h-24 w-24" alt="Cloudflare logo" />
-                    </a>
-                </div>
-                <h1 className="text-3xl font-bold underline">Vite + React + Hono + Cloudflare</h1>
-            </header>
-            <main className="flex-1 p-4">
-                <Outlet />
-            </main>
-            <footer className="bg-gray-800 text-white p-4">Footer</footer>
-        </div>
-    );
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset className="min-h-svh bg-muted/30">
+                <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6">
+                    <SidebarTrigger />
+                    <div>
+                        <h1 className="text-base font-semibold">Sitemap Dashboard</h1>
+                        <p className="text-sm text-muted-foreground">
+                            A very simple sidebar layout.
+                        </p>
+                    </div>
+                </header>
+                <main className="flex-1 p-4 sm:p-6">
+                    <Outlet />
+                </main>
+            </SidebarInset>
+        </SidebarProvider>
+    )
 }
