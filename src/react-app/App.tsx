@@ -1,11 +1,8 @@
-// src/App.tsx
-
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
 import honoLogo from "./assets/hono.svg";
-import "./App.css";
 
 function App() {
 	const [count, setCount] = useState(0);
@@ -13,25 +10,21 @@ function App() {
 
 	return (
 		<>
-			<div>
+			<div className="flex items-center justify-center gap-6 flex-wrap">
 				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
+					<img src={viteLogo} className="h-24 w-24" alt="Vite logo" />
 				</a>
 				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
+					<img src={reactLogo} className="h-24 w-24" alt="React logo" />
 				</a>
 				<a href="https://hono.dev/" target="_blank">
-					<img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
+					<img src={honoLogo} className="h-24 w-24" alt="Hono logo" />
 				</a>
 				<a href="https://workers.cloudflare.com/" target="_blank">
-					<img
-						src={cloudflareLogo}
-						className="logo cloudflare"
-						alt="Cloudflare logo"
-					/>
+					<img src={cloudflareLogo} className="h-24 w-24" alt="Cloudflare logo" />
 				</a>
 			</div>
-			<h1>Vite + React + Hono + Cloudflare</h1>
+			<h1 className="text-3xl font-bold underline">Vite + React + Hono + Cloudflare</h1>
 			<div className="card">
 				<button
 					onClick={() => setCount((count) => count + 1)}
@@ -44,7 +37,7 @@ function App() {
 				</p>
 			</div>
 			<div className="card">
-				<button
+				<button 
 					onClick={() => {
 						fetch("/api/")
 							.then((res) => res.json() as Promise<{ name: string }>)
