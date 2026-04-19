@@ -1,7 +1,7 @@
-export interface UrlItem {
+export interface UrlItemType {
   id: string;
   url: string;
   lastmod: string;
 }
 
-export type CreateUrlItem = Omit<UrlItem, "id">;
+export type CreateUrlItemType = Omit<UrlItemType, "id">;

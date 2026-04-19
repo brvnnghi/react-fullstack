@@ -1,8 +1,8 @@
 import { Separator } from "@/components/ui/separator";
 
-import type { UrlItem } from "@/shared/types";
+import type { UrlItemType } from "@/shared/types";
 
-export default function UrlItem({ id, url, lastmod }: UrlItem) {
+export default function UrlItem({ id, url, lastmod }: UrlItemType) {
 
     return (
     <>

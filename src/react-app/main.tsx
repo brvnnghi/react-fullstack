@@ -7,7 +7,7 @@ import AppShell from "./routes/AppShell.tsx";
 import "./index.css";
 import Home from "./routes/Home.tsx";
 import NewUrl from "./routes/NewUrl.tsx";
-import UrlList from "./routes/List.tsx";
+import UrlList, { loader as UrlLoader } from "./routes/UrlList.tsx";
 
 // component tree
 // AppShell
@@ -30,6 +30,7 @@ const router = createBrowserRouter([
 			{
 				path: "/list",
 				element: <UrlList />,
+				loader: UrlLoader,
 				children: [
 					{
 						path: "/list/new",
