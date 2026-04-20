@@ -16,7 +16,7 @@ export default function NotFound() {
       </div>
       {/* Right Section: Illustration */}
       <div className='relative max-h-screen w-full p-2 max-lg:hidden'>
-        <div className='h-full w-full rounded-2xl bg-black'></div>
+        <div className='h-full w-full rounded-2xl bg-primary'></div>
         <img
           src='/image-1.webp'
           alt='404 illustration'
