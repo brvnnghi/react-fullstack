@@ -1,36 +1,42 @@
 import { Hono } from "hono";
 
-import type { UrlItemType, CreateUrlItemType } from "../shared/types";
+// import database and schema
+import { drizzle } from 'drizzle-orm/d1';
+import { sitemapEntries } from "./db/schema";
+import { desc } from 'drizzle-orm'
+
+// import middleware
 import { isAdmin } from "./auth";
 
-const sitemapRoutes = new Hono<{ Bindings: Env }>();
+// import types
+import type { UrlItemType, CreateUrlItemType } from "../shared/types";
 
-const sampleUrls: UrlItemType[] = [
-    { id: "1", url: "https://www.brandsvietnam.com", lastmod: "2026-04-19" },
-    { id: "2", url: "https://www.hires.vn", lastmod: "2026-04-18" },
-    { id: "3", url: "https://www.brandcamp.asia", lastmod: "2026-04-17" },
-    { id: "4", url: "https://www.agencyvietnam.com", lastmod: "2026-04-16" },
-    { id: "5", url: "https://www.guitoi.com", lastmod: "2026-04-15" },
-    { id: "6", url: "https://www.youhoc.com", lastmod: "2026-04-14" },
-    { id: "7", url: "https://www.draftcut.app", lastmod: "2026-04-13" },
-    { id: "8", url: "https://www.brand.camp", lastmod: "2026-04-12" }
-];
+const sitemapRoutes = new Hono<{ Bindings: Env }>();
 
 sitemapRoutes.get("/", (c) => c.json({ name: "Cloudflare" }));
 
 sitemapRoutes.get("/urls", async (c) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    return c.json({ urls: sampleUrls });
+    // query all url items from the database
+    const db = drizzle(c.env.DB);
+    const result = await db.select().from(sitemapEntries).orderBy(desc(sitemapEntries.lastmod));
+    return c.json({ urls: result });
 });
 
 sitemapRoutes.post("/urls", isAdmin, async (c) => {
     const body = await c.req.json<CreateUrlItemType>();
+
+    // prepare, validate, and sanitize the new url item
     const newUrl: UrlItemType = {
-        id: String(sampleUrls.length + 1),
+        id: crypto.randomUUID(),
         url: body.url,
         lastmod: body.lastmod || new Date().toISOString().split("T")[0]
     };
-    sampleUrls.push(newUrl);
+
+    // insert into database
+    const db = drizzle(c.env.DB);
+    await db.insert(sitemapEntries).values(newUrl);
+
+    // return the newly created url item
     return c.json({ url: newUrl });
 });
 

@@ -1,6 +1,8 @@
 import type * as React from "react"
 import { HomeIcon, ChartGantt, LogIn, LogOut } from "lucide-react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
+
+// import auth hook
 import { useAuth } from "@/react-app/lib/auth"
 
 import {

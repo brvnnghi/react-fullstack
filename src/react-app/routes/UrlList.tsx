@@ -4,11 +4,17 @@ import { Await, Link, Outlet, useLoaderData } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 
+// import auth hook
+import { useAuth } from "@/react-app/lib/auth"
+
 import UrlItem from "./UrlItem";
 
 import type { UrlItemType } from "../../shared/types";
 
 function UrlList() {
+
+	// if logged in, show New Url button
+	const { username } = useAuth()
 
 	// loaderData is an object with a lazy promise (urls)
 	const { urls } = useLoaderData<{ urls: Promise<UrlItemType[]> }>();
@@ -16,13 +22,15 @@ function UrlList() {
 	return (
 		<>
 			<p>Sitemap List</p>
-			<Link
-				to="/list/new"
-				className={buttonVariants({ variant: "default" })}
-			>
-				<Plus className="size-4" />
-				<span>New Url</span>
-			</Link>
+			{username && (
+				<Link
+					to="/list/new"
+					className={buttonVariants({ variant: "default" })}
+				>
+					<Plus className="size-4" />
+					<span>New Url</span>
+				</Link>
+			)}
 			<Outlet />
 			<div className="flex w-full max-w-sm flex-col gap-2 text-sm">
 				<Suspense fallback={<p className="text-muted-foreground">Loading...</p>}>
