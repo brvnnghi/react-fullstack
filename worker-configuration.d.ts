@@ -3,6 +3,8 @@
 // Runtime types generated with workerd@1.20250508.0 2025-10-08 nodejs_compat
 declare namespace Cloudflare {
 	interface Env {
+		ALLOWED_ADMIN: string;
+		ALLOWED_PWD: string;
 	}
 }
 interface Env extends Cloudflare.Env {}

@@ -1,0 +1,2 @@
+ALLOWED_ADMIN=['some','admin']
+ALLOWED_PWD=['random','password']
