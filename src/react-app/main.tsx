@@ -15,6 +15,7 @@ import NewUrl from "./routes/NewUrl.tsx";
 import { action as NewUrlAction } from "./routes/UrlForm.tsx";
 
 import Login from "./routes/Login.tsx";
+import NotFound from "./routes/NotFound.tsx";
 
 // component tree
 // AppShell
@@ -35,9 +36,9 @@ import Login from "./routes/Login.tsx";
 
 const router = createBrowserRouter([
 	{
-		path: "/",
-		element: <AppShell />, 
-		children: [
+ 		path: "/",
+ 		element: <AppShell />,
+ 		children: [
 			{
 				path: "/",
 				element: <Home />
@@ -55,13 +56,17 @@ const router = createBrowserRouter([
 				]
 			},
 			{
-				// react router action don't have access to React context
+				// react router actions don't have access to React context
 				// so we handle login in a separate route without action
 				path: "/login",
 				element: <Login />
 			},
 
-		] 
+		]
+	},
+	{
+		path: "*",
+		element: <NotFound />
 	}
 ]);
 
