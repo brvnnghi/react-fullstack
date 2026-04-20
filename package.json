@@ -48,6 +48,7 @@
   "private": true,
   "scripts": {
     "build": "tsc -b && vite build",
+    "postbuild": "rm -f dist/react_fullstack/.dev.vars",
     "cf-typegen": "wrangler types",
     "check": "tsc && vite build && wrangler deploy --dry-run",
     "deploy": "npm run build && wrangler deploy",
