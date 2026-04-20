@@ -8,7 +8,6 @@ import { useAuth } from "@/react-app/lib/auth"
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
