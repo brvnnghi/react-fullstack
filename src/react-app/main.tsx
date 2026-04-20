@@ -14,8 +14,11 @@ import UrlList, { loader as UrlLoader } from "./routes/UrlList.tsx";
 import NewUrl from "./routes/NewUrl.tsx";
 import { action as NewUrlAction } from "./routes/UrlForm.tsx";
 
+import Login from "./routes/Login.tsx";
+
 // component tree
 // AppShell
+// ├── AuthProvider (UI)
 // ├── Sidebar Provider (UI)
 // │   ├── AppSidebar (UI)
 // │   ├── SidebarInset (UI)
@@ -28,6 +31,7 @@ import { action as NewUrlAction } from "./routes/UrlForm.tsx";
 // │   │   │   │   ├── NewUrl (route, action)
 // │   │   │   │   │   ├── Dialog (UI)
 // │   │   │   │   │   │   ├── UrlForm
+// │   │   │   ├── Login (route)
 
 const router = createBrowserRouter([
 	{
@@ -49,6 +53,12 @@ const router = createBrowserRouter([
 						action: NewUrlAction
 					},
 				]
+			},
+			{
+				// react router action don't have access to React context
+				// so we handle login in a separate route without action
+				path: "/login",
+				element: <Login />
 			},
 
 		] 

@@ -1,6 +1,7 @@
 import type * as React from "react"
-import { HomeIcon, ChartGantt } from "lucide-react"
-import { Link, useLocation } from "react-router-dom"
+import { HomeIcon, ChartGantt, LogIn, LogOut } from "lucide-react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useAuth } from "@/react-app/lib/auth"
 
 import {
   Sidebar,
@@ -24,7 +25,7 @@ const navigationItems = [
     exact: true,
   },
   {
-    title: "Sitemap List",
+    title: "Sitemap",
     url: "/list",
     icon: ChartGantt,
   },
@@ -32,6 +33,13 @@ const navigationItems = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation()
+  const navigate = useNavigate()
+  const { username, logout } = useAuth()
+
+  function handleLogout() {
+    logout()
+    navigate("/")
+  }
 
   return (
     <Sidebar {...props}>
@@ -39,7 +47,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="space-y-1">
           <p className="text-sm font-semibold">Sitemap Admin</p>
           <p className="text-xs text-sidebar-foreground/70">
-            Basic navigation for this app.
+            {username ? `Hello, ${username}` : "Basic navigation for this app."}
           </p>
         </div>
       </SidebarHeader>
@@ -66,6 +74,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </SidebarMenuItem>
                 )
               })}
+              <SidebarMenuItem>
+                {username ? (
+                  <SidebarMenuButton tooltip="Logout" onClick={handleLogout}>
+                    <LogOut />
+                    <span>Logout</span>
+                  </SidebarMenuButton>
+                ) : (
+                  <SidebarMenuButton
+                    isActive={location.pathname === "/login"}
+                    tooltip="Login"
+                    render={<Link to="/login" />}
+                  >
+                    <LogIn />
+                    <span>Login</span>
+                  </SidebarMenuButton>
+                )}
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

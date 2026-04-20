@@ -5,3 +5,8 @@ export interface UrlItemType {
 }
 
 export type CreateUrlItemType = Omit<UrlItemType, "id">;
+
+export interface UserType {
+  username: string;
+  password?: string;
+}
