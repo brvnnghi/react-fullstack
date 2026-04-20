@@ -43,9 +43,9 @@ authRoutes.post("/logout", async (c) => {
   return c.json({ ok: true });
 });
 
-authRoutes.get("/me", isAdmin, async (c) => {
+authRoutes.get("/me", async (c) => {
   const username = await getSignedCookie(c, c.env.COOKIE_SECRET, COOKIE_NAME);
-  return c.json({ username });
+  return c.json({ username: username ?? "" });
 });
 
 export default authRoutes;
