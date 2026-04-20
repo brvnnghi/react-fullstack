@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { HomeIcon, ChartGantt, LogIn, LogOut } from "lucide-react"
+import { HomeIcon, ChartGantt, LogIn, LogOut, Command } from "lucide-react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 
 // import auth hook
@@ -17,7 +17,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/react-app/components/ui/sidebar"
 
 const navigationItems = [
   {
@@ -44,16 +44,23 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   }
 
   return (
-    <Sidebar {...props}>
-      <SidebarHeader className="border-b border-sidebar-border px-4 py-4">
-        <div className="space-y-1">
-          <p className="text-sm font-semibold">Sitemap Admin</p>
-          <p className="text-xs text-sidebar-foreground/70">
-            {username ? `Hello, ${username}` : "Basic navigation for this app."}
-          </p>
-        </div>
+    <Sidebar variant="inset" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" render={<a href="#" />}>
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                <Command className="size-4" />
+              </div>
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-medium">YouHoc.com</span>
+                <span className="truncate text-xs">Hello {username ? `${username}` : "there"}.</span>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="px-2 py-3">
+      <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -97,9 +104,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="border-t border-sidebar-border p-4 text-xs text-sidebar-foreground/70">
-        Press Cmd/Ctrl + B to toggle.
-      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

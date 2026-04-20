@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Await, Link, Outlet, useLoaderData } from "react-router-dom";
 
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/react-app/components/ui/button";
 import { Plus } from "lucide-react";
 
 // import auth hook
@@ -21,27 +21,29 @@ function UrlList() {
 
 	return (
 		<>
-			<p>Sitemap List</p>
-			{username && (
-				<Link
-					to="/list/new"
-					className={buttonVariants({ variant: "default" })}
-				>
-					<Plus className="size-4" />
-					<span>New Url</span>
-				</Link>
-			)}
-			<Outlet />
-			<div className="flex w-full max-w-sm flex-col gap-2 text-sm">
-				<Suspense fallback={<p className="text-muted-foreground">Loading...</p>}>
-					<Await resolve={urls}>
-						{(loadedUrls: UrlItemType[]) =>
-							loadedUrls.map((url) => (
-								<UrlItem key={url.id} id={url.id} url={url.url} lastmod={url.lastmod} />
-							))
-						}
-					</Await>
-				</Suspense>
+			<h2>Sitemap List</h2>
+			<div className="min-h-[100vh] flex-1 rounded-xl bg-white md:min-h-min p-5">
+				{username && (
+					<Link
+						to="/list/new"
+						className={buttonVariants({ variant: "default" })}
+					>
+						<Plus className="size-4" />
+						<span>New Url</span>
+					</Link>
+				)}
+				<Outlet />
+				<div className="flex w-full max-w-sm flex-col gap-2 text-sm">
+					<Suspense fallback={<p className="text-muted-foreground">Loading...</p>}>
+						<Await resolve={urls}>
+							{(loadedUrls: UrlItemType[]) =>
+								loadedUrls.map((url) => (
+									<UrlItem key={url.id} id={url.id} url={url.url} lastmod={url.lastmod} />
+								))
+							}
+						</Await>
+					</Suspense>
+				</div>
 			</div>
 		</>
 	);

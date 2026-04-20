@@ -1,8 +1,8 @@
 import { Form, redirect } from "react-router-dom";
 
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/react-app/components/ui/input";
+import { Label } from "@/react-app/components/ui/label";
+import { Button } from "@/react-app/components/ui/button";
 
 import type { CreateUrlItemType } from "@/shared/types";
 

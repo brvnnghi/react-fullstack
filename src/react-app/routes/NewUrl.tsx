@@ -11,7 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription
-} from "@/components/ui/dialog";
+} from "@/react-app/components/ui/dialog";
 
 export default function NewUrl() {
   const navigate = useNavigate();
